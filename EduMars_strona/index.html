@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduMars - Edukacja Kosmiczna</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --mars-red: #cd5c5c;
+            --mars-orange: #ff6b35;
+            --dark-space: #0a0e27;
+            --light-space: #1a1f3a;
+            --star-white: #ffffff;
+            --accent-blue: #4a90e2;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(255, 107, 53, .16) 0%, rgba(74, 144, 226, .07) 24%, transparent 48%),
+                radial-gradient(circle at top, #151a3d 0%, var(--dark-space) 45%, #040611 100%);
+            color: var(--star-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+
+        .stars,
+        .stars-2,
+        .stars-3 {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        .stars .star {
+            width: 1px;
+            height: 1px;
+        }
+
+        .stars-2 .star {
+            width: 2px;
+            height: 2px;
+            opacity: .8;
+        }
+
+        .stars-3 .star {
+            width: 3px;
+            height: 3px;
+            opacity: .7;
+        }
+
+        .stars {
+            animation: driftSlow 180s linear infinite;
+        }
+
+        .stars-2 {
+            animation: driftMedium 120s linear infinite;
+        }
+
+        .stars-3 {
+            animation: driftFast 70s linear infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: .25;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.6);
+            }
+        }
+
+        @keyframes driftSlow {
+            from {
+                transform: translateY(0) translateX(0);
+            }
+
+            to {
+                transform: translateY(-120px) translateX(-40px);
+            }
+        }
+
+        @keyframes driftMedium {
+            from {
+                transform: translateY(0) translateX(0);
+            }
+
+            to {
+                transform: translateY(-220px) translateX(80px);
+            }
+        }
+
+        @keyframes driftFast {
+            from {
+                transform: translateY(0) translateX(0);
+            }
+
+            to {
+                transform: translateY(-380px) translateX(-120px);
+            }
+        }
+
+        50% {
+            opacity: 1;
+        }
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(180deg, rgba(26, 31, 58, 0.98) 0%, rgba(10, 14, 39, 0.94) 100%);
+            padding: 1.8rem 0;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, var(--mars-orange), var(--mars-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.7rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--star-white);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+
+        nav a:hover {
+            color: var(--mars-orange);
+        }
+
+        nav a[href="#sponsorzy"] {
+            color: var(--mars-orange);
+            font-weight: 700;
+        }
+
+        nav a[href="#sponsorzy"]::after {
+            content: "✦";
+            font-size: 0.65em;
+            margin-left: 0.35rem;
+            vertical-align: super;
+            opacity: 0.8;
+        }
+
+        .hero {
+            position: relative;
+            text-align: center;
+            padding: 7rem 1.5rem 6rem;
+            background:
+                radial-gradient(circle at center, rgba(255, 107, 53, .30) 0%, rgba(74, 144, 226, .12) 38%, transparent 72%),
+                linear-gradient(180deg, rgba(10, 14, 39, .18) 0%, rgba(10, 14, 39, .55) 70%, rgba(10, 14, 39, 0) 100%);
+            z-index: 1;
+            margin-bottom: -2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #ff6b35, #cd5c5c, #ff8c42);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.5));
+            }
+
+            50% {
+                filter: drop-shadow(0 0 30px rgba(255, 107, 53, 0.8));
+            }
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            color: #ddd;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            z-index: 1;
+        }
+
+        section {
+            margin: 2rem 0;
+            padding: 2rem 1.5rem;
+            background: rgba(26, 31, 58, 0.6);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .03);
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            margin-bottom: 1.5rem;
+            color: var(--mars-orange);
+            border-bottom: 3px solid var(--mars-orange);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(10, 14, 39, 0.6);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--mars-orange);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+        }
+
+        .feature-card h3 {
+            color: var(--mars-orange);
+            margin-bottom: 1rem;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+        }
+
+        .feature-card p {
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .team-section {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .team-section h3 {
+            color: var(--mars-orange);
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            margin-bottom: 2rem;
+        }
+
+        .team-member {
+            max-width: 400px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.2), rgba(205, 92, 92, 0.2));
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            border-color: var(--mars-orange);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+        }
+
+        .team-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            border: 4px solid var(--mars-orange);
+            box-shadow: 0 0 30px rgba(255, 107, 53, 0.5);
+            object-fit: cover;
+            display: block;
+        }
+
+        .team-name {
+            font-size: clamp(1.3rem, 3vw, 1.6rem);
+            font-weight: bold;
+            color: var(--mars-orange);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .team-description {
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            color: #ddd;
+            line-height: 1.6;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .project-item {
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.2), rgba(205, 92, 92, 0.2));
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--mars-orange);
+            transition: transform 0.3s;
+        }
+
+        .project-item:hover {
+            transform: scale(1.03);
+        }
+
+        .project-item strong {
+            color: var(--mars-orange);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+        }
+
+        .project-item p {
+            font-size: clamp(0.85rem, 2vw, 1rem);
+        }
+
+
+        /* ===== AKTUALNOŚCI ===== */
+        #aktualnosci {
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 85% 15%, rgba(255, 107, 53, .12), transparent 28%),
+                radial-gradient(circle at 10% 90%, rgba(74, 144, 226, .10), transparent 30%),
+                rgba(26, 31, 58, .68);
+        }
+
+        .news-intro {
+            max-width: 760px;
+            color: #cfd3e6;
+            margin: -0.5rem 0 2rem;
+            line-height: 1.7;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.4rem;
+        }
+
+        .news-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 300px;
+            padding: 1.5rem;
+            border-radius: 18px;
+            overflow: hidden;
+            background: linear-gradient(145deg, rgba(10, 14, 39, .86), rgba(38, 43, 75, .62));
+            border: 1px solid rgba(255, 255, 255, .08);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .22);
+            transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+        }
+
+        .news-card::after {
+            content: "";
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            right: -55px;
+            top: -55px;
+            border-radius: 50%;
+            background: rgba(255, 107, 53, .10);
+            filter: blur(4px);
+            pointer-events: none;
+        }
+
+        .news-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(255, 107, 53, .55);
+            box-shadow: 0 18px 42px rgba(255, 107, 53, .14);
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .75rem;
+            margin-bottom: 1.15rem;
+            font-size: .82rem;
+            color: #aeb5d2;
+        }
+
+        .news-category {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            padding: .35rem .7rem;
+            border-radius: 999px;
+            background: rgba(255, 107, 53, .12);
+            color: var(--mars-orange);
+            border: 1px solid rgba(255, 107, 53, .22);
+            font-weight: 700;
+        }
+
+        .news-date {
+            white-space: nowrap;
+        }
+
+        .news-icon {
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 1rem;
+            border-radius: 16px;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, rgba(255, 107, 53, .18), rgba(74, 144, 226, .16));
+            border: 1px solid rgba(255, 107, 53, .2);
+        }
+
+        .news-card h3 {
+            margin-bottom: .7rem;
+            color: #fff;
+            font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+            line-height: 1.35;
+        }
+
+        .news-card p {
+            color: #c9cde0;
+            line-height: 1.65;
+            font-size: .95rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .news-link {
+            margin-top: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            color: var(--mars-orange);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .news-link span {
+            transition: transform .3s ease;
+        }
+
+        .news-card:hover .news-link span {
+            transform: translateX(5px);
+        }
+
+        .news-footer {
+            margin-top: 1.7rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            color: #9ea6c4;
+            font-size: .9rem;
+        }
+
+        .news-footer strong {
+            color: #fff;
+        }
+
+        @media (max-width: 900px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .news-card {
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .news-meta,
+            .news-footer {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .locations-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 2rem auto;
+        }
+
+        .location-card {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(205, 92, 92, 0.2));
+            padding: 2rem 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 0;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .location-card h3 {
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            color: var(--mars-orange);
+            margin-bottom: 1rem;
+        }
+
+        .location-card p {
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .sponsors-link {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+            max-width: 900px;
+            margin: 2rem auto 0;
+        }
+
+        .sponsor-card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 2.2rem;
+            background:
+                radial-gradient(circle at 10% 50%, rgba(255, 107, 53, 0.18), transparent 35%),
+                linear-gradient(135deg, rgba(74, 144, 226, 0.14), rgba(205, 92, 92, 0.16));
+            border: 1px solid rgba(255, 107, 53, 0.28);
+            border-radius: 22px;
+            overflow: hidden;
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .sponsor-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, .06) 50%, transparent 80%);
+            transform: translateX(-100%);
+            transition: transform 0.7s ease;
+        }
+
+        .sponsors-link:hover .sponsor-card {
+            transform: translateY(-6px);
+            border-color: rgba(255, 107, 53, 0.75);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.22);
+        }
+
+        .sponsors-link:hover .sponsor-card::before {
+            transform: translateX(100%);
+        }
+
+        .sponsor-icon {
+            position: relative;
+            z-index: 1;
+            flex: 0 0 82px;
+            width: 82px;
+            height: 82px;
+            display: grid;
+            place-items: center;
+            font-size: 2.5rem;
+            border-radius: 20px;
+            background: rgba(10, 14, 39, 0.65);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 8px 25px rgba(0, 0, 0, .25);
+        }
+
+        .sponsor-content {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+
+        .sponsor-card h3 {
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            color: var(--mars-orange);
+            margin-bottom: 0.6rem;
+        }
+
+        .sponsor-card p {
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            color: #ddd;
+            max-width: 720px;
+            margin-bottom: 1rem;
+        }
+
+        .sponsor-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--star-white);
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: color 0.3s ease, gap 0.3s ease;
+        }
+
+        .sponsor-cta span {
+            color: var(--mars-orange);
+            font-size: 1.3rem;
+            transition: transform 0.3s ease;
+        }
+
+        .sponsors-link:hover .sponsor-cta {
+            color: var(--mars-orange);
+            gap: 0.9rem;
+        }
+
+        .sponsors-link:hover .sponsor-cta span {
+            transform: translateX(4px);
+        }
+
+        @media (max-width: 600px) {
+            .sponsor-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.7rem 1.2rem;
+            }
+
+            .sponsor-icon {
+                flex-basis: 70px;
+                width: 70px;
+                height: 70px;
+                font-size: 2.1rem;
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(90deg, var(--mars-orange), var(--mars-red));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 2rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.4);
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 107, 53, 0.6);
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact-card {
+            background: rgba(74, 144, 226, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--accent-blue);
+        }
+
+        .contact-card h3 {
+            color: var(--accent-blue);
+            margin-bottom: 0.5rem;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        .contact-card p {
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            word-break: break-word;
+        }
+
+        .contact-card a {
+            color: var(--mars-orange);
+            text-decoration: none;
+            word-break: break-word;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        .social-media {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .social-media h3 {
+            color: var(--mars-orange);
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .social-link {
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.2), rgba(205, 92, 92, 0.2));
+            padding: 1.5rem 1rem;
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--star-white);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .social-link:hover {
+            border-color: var(--mars-orange);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+        }
+
+        .social-link .icon {
+            font-size: clamp(2rem, 5vw, 3rem);
+        }
+
+        .social-link .platform {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            font-weight: bold;
+            color: var(--mars-orange);
+        }
+
+        .social-link .handle {
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
+            color: #aaa;
+            word-break: break-word;
+        }
+
+        footer {
+            position: relative;
+            text-align: center;
+            padding: 2rem 1rem;
+            background: rgba(10, 14, 39, 0.8);
+            margin-top: 4rem;
+            border-top: 2px solid var(--mars-orange);
+            z-index: 1;
+        }
+
+        footer p {
+            font-size: clamp(0.8rem, 2vw, 1rem);
+        }
+
+        /* Mobile optimization */
+        @media (max-width: 768px) {
+            header {
+                padding: 1.4rem 0;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 1.25rem;
+                padding: 1rem;
+            }
+
+            nav ul {
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .hero {
+                padding: 5rem 1rem 4rem;
+                margin-bottom: -1rem;
+            }
+
+            section {
+                margin: 1.5rem 0;
+                padding: 1.5rem 1rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .feature-card,
+            .project-item,
+            .social-link {
+                padding: 1.2rem;
+            }
+
+            .team-photo {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.7rem;
+            }
+
+            nav ul {
+                gap: 0.8rem;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+            }
+
+            .social-links {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .social-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+
+        .coming-soon-location {
+            position: relative;
+            overflow: hidden;
+            border-color: rgba(255, 140, 40, .28);
+        }
+
+        .coming-soon-location::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent, rgba(255, 140, 40, .07), transparent);
+            transform: translateX(-100%);
+            transition: transform .7s ease;
+        }
+
+        .coming-soon-location:hover::after {
+            transform: translateX(100%);
+        }
+
+        .location-badge {
+            display: inline-block;
+            margin-bottom: .45rem;
+            padding: .3rem .65rem;
+            border: 1px solid rgba(255, 140, 40, .4);
+            border-radius: 999px;
+            color: #ff9a3d;
+            font-size: .72rem;
+            font-weight: 800;
+            letter-spacing: .12em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="stars-2" id="stars2"></div>
+    <div class="stars-3" id="stars3"></div>
+
+    <header>
+        <nav>
+            <div class="logo">🚀 EduMars</div>
+            <ul>
+                <li><a href="#o-projekcie">O projekcie</a></li>
+                <li><a href="#projekty">Projekty</a></li>
+                <li><a href="#zespol">Zespół</a></li>
+                <li><a href="#aktualnosci">Aktualności</a></li>
+                <li><a href="#sponsorzy">Sponsorzy i darczyńcy</a></li>
+                <li><a href="#lokalizacja">Lokalizacja</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>EduMars</h1>
+        <p>Innowacyjna edukacja z astronomii, robotyki i programowania inspirowana misją marsjańską</p>
+    </div>
+
+    <main class="container">
+        <section id="o-projekcie">
+            <h2>O projekcie</h2>
+            <p style="font-size: clamp(1rem, 2.5vw, 1.2rem); margin-bottom: 2rem;">
+                EduMars to innowacyjna inicjatywa edukacyjna z zakresu astronomii, robotyki i programowania,
+                prowadzona metodami edukacji spersonalizowanej – w małych grupach oraz poprzez samodzielną naukę pod
+                opieką instruktora.
+            </p>
+
+            <div class="features">
+                <div class="feature-card">
+                    <h3>🎯 Cel</h3>
+                    <p>Zwiększenie zainteresowania dzieci i młodzieży naukami ścisłymi poprzez poznanie
+                        różnych aspektów badań Marsa, innych planet Układu Słonecznego oraz otaczającego nas środowiska.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🚀 Inspiracja</h3>
+                    <p>Projekt inspirowany misją marsjańską łazika PERSEVERANCE, rozpoczęty we wrześniu 2021 roku.
+                        Skierowany do dzieci i młodzieży w wieku od 13 lat.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🛠️ Metoda</h3>
+                    <p>Wszystkie elementy konstrukcyjne uczestnicy tworzą sami pod okiem instruktora.
+                        Nie pracujemy na gotowych elementach – stawiamy na kreatywność!</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projekty">
+            <h2>Realizowane projekty</h2>
+            <p style="margin-bottom: 2rem; font-size: clamp(0.9rem, 2vw, 1rem);">
+                Nasi podopieczni uczą się wspólnie rozwiązywania problemów inżynierskich poprzez realizację
+                wybranych przez siebie projektów:
+            </p>
+
+            <div class="projects-grid">
+                <div class="project-item">
+                    <strong>🤖 Marsjańska Mrówka</strong>
+                    <p>Łazik marsjański wraz z autorską makietą powierzchni Marsa</p>
+                </div>
+
+                <div class="project-item">
+                    <strong>🛸 Poduszkowiec</strong>
+                    <p>Pojazd przemieszczający się po ziemi i wodzie</p>
+                </div>
+
+                <div class="project-item">
+                    <strong>⚡ Roboty walczące</strong>
+                    <p>Minisumo i linefollower</p>
+                </div>
+
+                <div class="project-item">
+                    <strong>📚 Rakieta</strong>
+                    <p>Autorski model rakiety</p>
+                </div>
+
+                <div class="project-item">
+                    <strong>🛰️ CanSat</strong>
+                    <p>Minisatelita edukacyjny w standardzie CanSat</p>
+                </div>
+
+                <div class="project-item">
+                    <strong>📚 Ciągły rozwój</strong>
+                    <p>Kursy online, gamifikacja i internetowe zasoby wiedzy</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="zespol">
+            <h2>Nasz zespół</h2>
+            <div class="team-section">
+                <h3>Poznaj osobę prowadzącą projekt</h3>
+                <div class="team-member">
+                    <img src="kamil.jpg" alt="Kamil Misiurek" class="team-photo">
+                    <div class="team-name">Kamil Misiurek</div>
+                    <div class="team-role">Organizator i Główny instruktor</div>
+                    <div class="team-description">
+                        Pasjonat robotyki, programowania i astronomii. Prowadzi zajęcia EduMars,
+                        pomagając młodym odkrywcom rozwijać umiejętności techniczne i naukowe poprzez
+                        praktyczne projekty inspirowane eksploracją kosmosu.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="aktualnosci">
+            <h2>Aktualności</h2>
+            <p class="news-intro">
+                Najważniejsze informacje z życia EduMars — nowe projekty, wydarzenia,
+                osiągnięcia uczestników i kolejne kroki naszej kosmicznej przygody.
+            </p>
+
+            <div class="news-grid">
+                <article class="news-card">
+                    <div class="news-meta">
+                        <span class="news-category">🚀 EduMars</span>
+                        <span class="news-date">Najnowsze</span>
+                    </div>
+                    <div class="news-icon">🛰️</div>
+                    <h3>Nowe projekty są już na radarze</h3>
+                    <p>
+                        Przygotowujemy kolejne wyzwania z zakresu robotyki, programowania
+                        i eksploracji kosmosu. To tutaj będziemy prezentować najnowsze informacje.
+                    </p>
+                    <a href="#projekty" class="news-link">Zobacz projekty <span>→</span></a>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-meta">
+                        <span class="news-category">🔧 Projekty</span>
+                        <span class="news-date">Aktualizacja</span>
+                    </div>
+                    <div class="news-icon">🤖</div>
+                    <h3>Budujemy, testujemy, uczymy się</h3>
+                    <p>
+                        EduMars to przede wszystkim praktyka. Uczestnicy samodzielnie tworzą
+                        konstrukcje i rozwiązują problemy inżynierskie pod opieką instruktora.
+                    </p>
+                    <a href="#o-projekcie" class="news-link">Poznaj EduMars <span>→</span></a>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-meta">
+                        <span class="news-category">🌌 Wydarzenia</span>
+                        <span class="news-date">Wkrótce</span>
+                    </div>
+                    <div class="news-icon">🔭</div>
+                    <h3>Co dalej? Śledź naszą misję</h3>
+                    <p>
+                        W tej sekcji będziemy publikować zapowiedzi spotkań, relacje z wydarzeń,
+                        zdjęcia oraz najciekawsze momenty z pracy młodych odkrywców.
+                    </p>
+                    <a href="#kontakt" class="news-link">Śledź nasze działania <span>→</span></a>
+                </article>
+            </div>
+
+            <div class="news-footer">
+                <span>Masz ciekawy temat lub chcesz pokazać swój projekt?</span>
+                <strong>Skontaktuj się z EduMars →</strong>
+            </div>
+        </section>
+
+        <section id="lokalizacja">
+            <h2>Lokalizacja</h2>
+            <div class="locations-grid">
+                <div class="location-card">
+                    <h3>📍 Brzozów</h3>
+                    <p>Projekt działa od września 2021 roku przy Fundacji Pomocy Dzieciom
+                        im. Stanisławy Bieńczak w Brzozowie.</p>
+                </div>
+
+                <div class="location-card coming-soon-location">
+                    <div class="location-icon">📍</div>
+                    <div>
+                        <span class="location-badge">WKRÓTCE</span>
+                        <h3>Nowa lokalizacja</h3>
+                        <p>Już wkrótce poinformujemy o kolejnym miejscu działania EduMars.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTIk-LgAe-wfyulcibPyA-4G9erFTKEZP0yke-iAp-oZog1Q/viewform"
+                    class="cta-button" target="_blank" rel="noopener noreferrer">Dołącz do EduMars! 🚀</a>
+            </div>
+
+        </section>
+        <section id="sponsorzy">
+            <h2>Sponsorzy i darczyńcy</h2>
+
+            <a href="sponsorzy.html" class="sponsors-link" aria-label="Przejdź do strony sponsorów i darczyńców">
+                <div class="sponsor-card">
+                    <div class="sponsor-icon">🤝</div>
+                    <div class="sponsor-content">
+                        <h3>Ściana wsparcia</h3>
+                        <p>
+                            Poznaj osoby, firmy i instytucje, które wspierają rozwój
+                            projektu EduMars i pomagają nam inspirować młodych odkrywców.
+                        </p>
+                        <span class="sponsor-cta">Poznaj naszych sponsorów <span>→</span></span>
+                    </div>
+                </div>
+            </a>
+        </section>
+
+        <section id="kontakt">
+            <h2>Kontakt</h2>
+            <div class="contact-info">
+                <div class="contact-card">
+                    <h3>📞 Telefon</h3>
+                    <p><a href="tel:+48886121202">+48 886 121 202</a></p>
+                </div>
+
+                <div class="contact-card">
+                    <h3>✉️ E-mail</h3>
+                    <p><a href="mailto:edumars2021@gmail.com">edumars2021@gmail.com</a></p>
+                    <p><a href="mailto:kontakt@fpd.org.pl">kontakt@fpd.org.pl</a></p>
+                </div>
+            </div>
+
+            <div class="social-media">
+                <h3>📱 Śledź nas w social media!</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/profile.php?id=100088950497777" class="social-link"
+                        target="_blank" rel="noopener noreferrer">
+                        <div class="icon">👥</div>
+                        <div class="platform">Facebook</div>
+                        <div class="handle">@EduMars</div>
+                    </a>
+
+                    <a href="https://www.youtube.com/@edumars" class="social-link" target="_blank"
+                        rel="noopener noreferrer">
+                        <div class="icon">📺</div>
+                        <div class="platform">YouTube</div>
+                        <div class="handle">@edumars</div>
+                    </a>
+
+                    <a href="https://www.instagram.com/edumarspolska" class="social-link" target="_blank"
+                        rel="noopener noreferrer">
+                        <div class="icon">📸</div>
+                        <div class="platform">Instagram</div>
+                        <div class="handle">@edumarspolska</div>
+                    </a>
+
+                    <a href="https://www.tiktok.com/@edumarspolska" class="social-link" target="_blank"
+                        rel="noopener noreferrer">
+                        <div class="icon">🎵</div>
+                        <div class="platform">TikTok</div>
+                        <div class="handle">@edumarspolska</div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 EduMars – edukacja spersonalizowana – Projekt Fundacji Pomocy Dzieciom im. Stanisławy Bieńczak
+        </p>
+        <p style="margin-top: 0.5rem; color: #aaa;">Edukacja kosmiczna dla dzieci i młodzieży 🌌</p>
+    </footer>
+
+    <script>
+        // Generate parallax star layers
+        const layers = [
+            { id: 'stars', count: window.innerWidth < 768 ? 120 : 220 },
+            { id: 'stars2', count: window.innerWidth < 768 ? 60 : 120 },
+            { id: 'stars3', count: window.innerWidth < 768 ? 30 : 60 }
+        ];
+
+        layers.forEach(layer => {
+            const container = document.getElementById(layer.id);
+            for (let i = 0; i < layer.count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 4 + 's';
+                container.appendChild(star);
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
