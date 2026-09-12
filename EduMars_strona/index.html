@@ -24,17 +24,15 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background:
-                radial-gradient(circle at 50% 0%, rgba(255, 107, 53, .16) 0%, rgba(74, 144, 226, .07) 24%, transparent 48%),
+                radial-gradient(circle at 50% 0%, rgba(255,107,53,.16) 0%, rgba(74,144,226,.07) 24%, transparent 48%),
                 radial-gradient(circle at top, #151a3d 0%, var(--dark-space) 45%, #040611 100%);
             color: var(--star-white);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-
-        .stars,
-        .stars-2,
-        .stars-3 {
+        
+        .stars, .stars-2, .stars-3 {
             position: fixed;
             inset: 0;
             pointer-events: none;
@@ -49,82 +47,37 @@
             animation: twinkle 3s infinite ease-in-out;
         }
 
-        .stars .star {
-            width: 1px;
-            height: 1px;
-        }
+        .stars .star { width: 1px; height: 1px; }
+        .stars-2 .star { width: 2px; height: 2px; opacity: .8; }
+        .stars-3 .star { width: 3px; height: 3px; opacity: .7; }
 
-        .stars-2 .star {
-            width: 2px;
-            height: 2px;
-            opacity: .8;
-        }
-
-        .stars-3 .star {
-            width: 3px;
-            height: 3px;
-            opacity: .7;
-        }
-
-        .stars {
-            animation: driftSlow 180s linear infinite;
-        }
-
-        .stars-2 {
-            animation: driftMedium 120s linear infinite;
-        }
-
-        .stars-3 {
-            animation: driftFast 70s linear infinite;
-        }
+        .stars { animation: driftSlow 180s linear infinite; }
+        .stars-2 { animation: driftMedium 120s linear infinite; }
+        .stars-3 { animation: driftFast 70s linear infinite; }
 
         @keyframes twinkle {
-
-            0%,
-            100% {
-                opacity: .25;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 1;
-                transform: scale(1.6);
-            }
+            0%,100% { opacity: .25; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.6); }
         }
 
         @keyframes driftSlow {
-            from {
-                transform: translateY(0) translateX(0);
-            }
-
-            to {
-                transform: translateY(-120px) translateX(-40px);
-            }
+            from { transform: translateY(0) translateX(0); }
+            to { transform: translateY(-120px) translateX(-40px); }
         }
 
         @keyframes driftMedium {
-            from {
-                transform: translateY(0) translateX(0);
-            }
-
-            to {
-                transform: translateY(-220px) translateX(80px);
-            }
+            from { transform: translateY(0) translateX(0); }
+            to { transform: translateY(-220px) translateX(80px); }
         }
 
         @keyframes driftFast {
-            from {
-                transform: translateY(0) translateX(0);
-            }
-
-            to {
-                transform: translateY(-380px) translateX(-120px);
-            }
+            from { transform: translateY(0) translateX(0); }
+            to { transform: translateY(-380px) translateX(-120px); }
         }
 
-        50% {
-            opacity: 1;
-        }
+            50% {
+                opacity: 1;
+            }
         }
 
         header {
@@ -193,8 +146,8 @@
             text-align: center;
             padding: 7rem 1.5rem 6rem;
             background:
-                radial-gradient(circle at center, rgba(255, 107, 53, .30) 0%, rgba(74, 144, 226, .12) 38%, transparent 72%),
-                linear-gradient(180deg, rgba(10, 14, 39, .18) 0%, rgba(10, 14, 39, .55) 70%, rgba(10, 14, 39, 0) 100%);
+                radial-gradient(circle at center, rgba(255,107,53,.30) 0%, rgba(74,144,226,.12) 38%, transparent 72%),
+                linear-gradient(180deg, rgba(10,14,39,.18) 0%, rgba(10,14,39,.55) 70%, rgba(10,14,39,0) 100%);
             z-index: 1;
             margin-bottom: -2rem;
         }
@@ -243,7 +196,7 @@
             border-radius: 20px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 107, 53, 0.2);
-            box-shadow: 0 10px 35px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .03);
+            box-shadow: 0 10px 35px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.03);
         }
 
         h2 {
@@ -344,6 +297,152 @@
             line-height: 1.6;
         }
 
+        /* ===== WPROWADZENIE DO ZESPOŁU ===== */
+        .team-link {
+            display: block;
+            max-width: 900px;
+            margin: 0 auto;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .team-intro-card {
+            position: relative;
+            padding: clamp(2rem, 5vw, 3.5rem);
+            border: 1px solid rgba(255, 107, 53, .35);
+            border-radius: 22px;
+            background:
+                radial-gradient(circle at 85% 20%, rgba(255, 107, 53, .13), transparent 35%),
+                linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+            box-shadow: 0 12px 40px rgba(0,0,0,.28);
+            overflow: hidden;
+            cursor: pointer;
+            text-align: center;
+            transition: transform .35s ease, border-color .35s ease,
+                        box-shadow .35s ease, background .35s ease;
+        }
+
+        .team-intro-card::before {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            right: -70px;
+            top: -70px;
+            border-radius: 50%;
+            background: rgba(255, 107, 53, .08);
+            filter: blur(8px);
+            pointer-events: none;
+        }
+
+        .team-intro-icon {
+            position: relative;
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 107, 53, .5);
+            background: rgba(255, 107, 53, .1);
+            font-size: 2rem;
+        }
+
+        .team-intro-card h4 {
+            position: relative;
+            margin: 0 0 1rem;
+            color: var(--star-white);
+            font-size: clamp(1.35rem, 3vw, 1.8rem);
+        }
+
+        .team-intro-card p {
+            position: relative;
+            max-width: 680px;
+            margin: 0 auto;
+            color: #d8d8d8;
+            line-height: 1.75;
+            font-size: 1rem;
+        }
+
+        .team-intro-cta {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: .65rem;
+            margin-top: 1.6rem;
+            padding: .85rem 1.25rem;
+            border-radius: 999px;
+            background: rgba(255, 107, 53, .12);
+            border: 1px solid rgba(255, 107, 53, .45);
+            color: var(--star-white);
+            font-weight: 700;
+            transition: transform .3s ease, background .3s ease,
+                        border-color .3s ease, gap .3s ease;
+        }
+
+        .team-intro-cta span {
+            color: var(--mars-orange);
+            font-size: 1.25rem;
+            transition: transform .3s ease;
+        }
+
+        .team-link:hover .team-intro-card {
+            transform: translateY(-7px);
+            border-color: var(--mars-orange);
+            box-shadow: 0 18px 50px rgba(255, 107, 53, .22);
+            background:
+                radial-gradient(circle at 85% 20%, rgba(255, 107, 53, .18), transparent 35%),
+                linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.03));
+        }
+
+        .team-link:hover .team-intro-cta {
+            gap: .95rem;
+            background: rgba(255, 107, 53, .2);
+            border-color: var(--mars-orange);
+        }
+
+        .team-link:hover .team-intro-cta span {
+            transform: translateX(5px);
+        }
+
+        /* ===== PROJEKTY — PORTAL ===== */
+        .projects-portal {
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(74,144,226,.13), rgba(255,107,53,.12));
+            border: 1px solid rgba(255,107,53,.24);
+            box-shadow: 0 18px 45px rgba(0,0,0,.24);
+        }
+        .projects-portal::before {
+            content: ""; position:absolute; width:280px; height:280px; right:-100px; top:-130px;
+            border-radius:50%; background:rgba(255,107,53,.10); filter:blur(8px); pointer-events:none;
+        }
+        .projects-portal-head {
+            display:flex; align-items:center; justify-content:space-between; gap:1.5rem; position:relative; z-index:1;
+        }
+        .projects-portal-copy { max-width:720px; }
+        .projects-kicker {
+            display:inline-block; margin-bottom:.55rem; padding:.3rem .7rem; border-radius:999px;
+            background:rgba(74,144,226,.13); border:1px solid rgba(74,144,226,.25); color:#9fc8ff;
+            font-size:.78rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+        }
+        .projects-portal h3 { color:#fff; font-size:clamp(1.35rem,3vw,1.9rem); margin-bottom:.55rem; }
+        .projects-portal p { color:#cfd3e6; }
+        .projects-button {
+            flex:0 0 auto; display:inline-flex; align-items:center; gap:.65rem; padding:.9rem 1.2rem;
+            border-radius:14px; background:linear-gradient(135deg,var(--mars-orange),#e24f2b); color:#fff;
+            text-decoration:none; font-weight:800; box-shadow:0 10px 25px rgba(255,107,53,.22);
+            transition:transform .25s ease, box-shadow .25s ease;
+        }
+        .projects-button:hover { transform:translateY(-3px); box-shadow:0 15px 32px rgba(255,107,53,.34); }
+        .project-preview-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.5rem; position:relative; z-index:1; }
+        .project-preview { padding:1.15rem; border-radius:16px; background:rgba(10,14,39,.52); border:1px solid rgba(255,255,255,.07); }
+        .project-preview strong { display:block; color:var(--mars-orange); margin-bottom:.3rem; }
+        .projects-nav-link { color:var(--mars-orange); font-weight:700; }
+
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -380,9 +479,9 @@
             position: relative;
             overflow: hidden;
             background:
-                radial-gradient(circle at 85% 15%, rgba(255, 107, 53, .12), transparent 28%),
-                radial-gradient(circle at 10% 90%, rgba(74, 144, 226, .10), transparent 30%),
-                rgba(26, 31, 58, .68);
+                radial-gradient(circle at 85% 15%, rgba(255,107,53,.12), transparent 28%),
+                radial-gradient(circle at 10% 90%, rgba(74,144,226,.10), transparent 30%),
+                rgba(26,31,58,.68);
         }
 
         .news-intro {
@@ -406,9 +505,9 @@
             padding: 1.5rem;
             border-radius: 18px;
             overflow: hidden;
-            background: linear-gradient(145deg, rgba(10, 14, 39, .86), rgba(38, 43, 75, .62));
-            border: 1px solid rgba(255, 255, 255, .08);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, .22);
+            background: linear-gradient(145deg, rgba(10,14,39,.86), rgba(38,43,75,.62));
+            border: 1px solid rgba(255,255,255,.08);
+            box-shadow: 0 12px 30px rgba(0,0,0,.22);
             transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
         }
 
@@ -420,15 +519,15 @@
             right: -55px;
             top: -55px;
             border-radius: 50%;
-            background: rgba(255, 107, 53, .10);
+            background: rgba(255,107,53,.10);
             filter: blur(4px);
             pointer-events: none;
         }
 
         .news-card:hover {
             transform: translateY(-7px);
-            border-color: rgba(255, 107, 53, .55);
-            box-shadow: 0 18px 42px rgba(255, 107, 53, .14);
+            border-color: rgba(255,107,53,.55);
+            box-shadow: 0 18px 42px rgba(255,107,53,.14);
         }
 
         .news-meta {
@@ -447,9 +546,9 @@
             gap: .35rem;
             padding: .35rem .7rem;
             border-radius: 999px;
-            background: rgba(255, 107, 53, .12);
+            background: rgba(255,107,53,.12);
             color: var(--mars-orange);
-            border: 1px solid rgba(255, 107, 53, .22);
+            border: 1px solid rgba(255,107,53,.22);
             font-weight: 700;
         }
 
@@ -465,8 +564,8 @@
             margin-bottom: 1rem;
             border-radius: 16px;
             font-size: 1.8rem;
-            background: linear-gradient(135deg, rgba(255, 107, 53, .18), rgba(74, 144, 226, .16));
-            border: 1px solid rgba(255, 107, 53, .2);
+            background: linear-gradient(135deg, rgba(255,107,53,.18), rgba(74,144,226,.16));
+            border: 1px solid rgba(255,107,53,.2);
         }
 
         .news-card h3 {
@@ -504,7 +603,7 @@
         .news-footer {
             margin-top: 1.7rem;
             padding-top: 1.2rem;
-            border-top: 1px solid rgba(255, 255, 255, .08);
+            border-top: 1px solid rgba(255,255,255,.08);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -528,7 +627,6 @@
         }
 
         @media (max-width: 600px) {
-
             .news-meta,
             .news-footer {
                 align-items: flex-start;
@@ -595,7 +693,7 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, .06) 50%, transparent 80%);
+            background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,.06) 50%, transparent 80%);
             transform: translateX(-100%);
             transition: transform 0.7s ease;
         }
@@ -622,7 +720,7 @@
             border-radius: 20px;
             background: rgba(10, 14, 39, 0.65);
             border: 1px solid rgba(255, 107, 53, 0.3);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 8px 25px rgba(0, 0, 0, .25);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 8px 25px rgba(0,0,0,.25);
         }
 
         .sponsor-content {
@@ -809,6 +907,12 @@
 
         /* Mobile optimization */
         @media (max-width: 768px) {
+        .projects-portal-head { flex-direction:column; align-items:flex-start; }
+        .projects-button { width:100%; justify-content:center; }
+        .project-preview-grid { grid-template-columns:1fr; }
+    }
+
+    @media (max-width: 768px) {
             header {
                 padding: 1.4rem 0;
             }
@@ -838,7 +942,44 @@
                 grid-template-columns: 1fr;
             }
 
-            .projects-grid {
+            /* ===== PROJEKTY — PORTAL ===== */
+        .projects-portal {
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(74,144,226,.13), rgba(255,107,53,.12));
+            border: 1px solid rgba(255,107,53,.24);
+            box-shadow: 0 18px 45px rgba(0,0,0,.24);
+        }
+        .projects-portal::before {
+            content: ""; position:absolute; width:280px; height:280px; right:-100px; top:-130px;
+            border-radius:50%; background:rgba(255,107,53,.10); filter:blur(8px); pointer-events:none;
+        }
+        .projects-portal-head {
+            display:flex; align-items:center; justify-content:space-between; gap:1.5rem; position:relative; z-index:1;
+        }
+        .projects-portal-copy { max-width:720px; }
+        .projects-kicker {
+            display:inline-block; margin-bottom:.55rem; padding:.3rem .7rem; border-radius:999px;
+            background:rgba(74,144,226,.13); border:1px solid rgba(74,144,226,.25); color:#9fc8ff;
+            font-size:.78rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+        }
+        .projects-portal h3 { color:#fff; font-size:clamp(1.35rem,3vw,1.9rem); margin-bottom:.55rem; }
+        .projects-portal p { color:#cfd3e6; }
+        .projects-button {
+            flex:0 0 auto; display:inline-flex; align-items:center; gap:.65rem; padding:.9rem 1.2rem;
+            border-radius:14px; background:linear-gradient(135deg,var(--mars-orange),#e24f2b); color:#fff;
+            text-decoration:none; font-weight:800; box-shadow:0 10px 25px rgba(255,107,53,.22);
+            transition:transform .25s ease, box-shadow .25s ease;
+        }
+        .projects-button:hover { transform:translateY(-3px); box-shadow:0 15px 32px rgba(255,107,53,.34); }
+        .project-preview-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.5rem; position:relative; z-index:1; }
+        .project-preview { padding:1.15rem; border-radius:16px; background:rgba(10,14,39,.52); border:1px solid rgba(255,255,255,.07); }
+        .project-preview strong { display:block; color:var(--mars-orange); margin-bottom:.3rem; }
+        .projects-nav-link { color:var(--mars-orange); font-weight:700; }
+
+        .projects-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -887,7 +1028,44 @@
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
-            .projects-grid {
+            /* ===== PROJEKTY — PORTAL ===== */
+        .projects-portal {
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(74,144,226,.13), rgba(255,107,53,.12));
+            border: 1px solid rgba(255,107,53,.24);
+            box-shadow: 0 18px 45px rgba(0,0,0,.24);
+        }
+        .projects-portal::before {
+            content: ""; position:absolute; width:280px; height:280px; right:-100px; top:-130px;
+            border-radius:50%; background:rgba(255,107,53,.10); filter:blur(8px); pointer-events:none;
+        }
+        .projects-portal-head {
+            display:flex; align-items:center; justify-content:space-between; gap:1.5rem; position:relative; z-index:1;
+        }
+        .projects-portal-copy { max-width:720px; }
+        .projects-kicker {
+            display:inline-block; margin-bottom:.55rem; padding:.3rem .7rem; border-radius:999px;
+            background:rgba(74,144,226,.13); border:1px solid rgba(74,144,226,.25); color:#9fc8ff;
+            font-size:.78rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+        }
+        .projects-portal h3 { color:#fff; font-size:clamp(1.35rem,3vw,1.9rem); margin-bottom:.55rem; }
+        .projects-portal p { color:#cfd3e6; }
+        .projects-button {
+            flex:0 0 auto; display:inline-flex; align-items:center; gap:.65rem; padding:.9rem 1.2rem;
+            border-radius:14px; background:linear-gradient(135deg,var(--mars-orange),#e24f2b); color:#fff;
+            text-decoration:none; font-weight:800; box-shadow:0 10px 25px rgba(255,107,53,.22);
+            transition:transform .25s ease, box-shadow .25s ease;
+        }
+        .projects-button:hover { transform:translateY(-3px); box-shadow:0 15px 32px rgba(255,107,53,.34); }
+        .project-preview-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.5rem; position:relative; z-index:1; }
+        .project-preview { padding:1.15rem; border-radius:16px; background:rgba(10,14,39,.52); border:1px solid rgba(255,255,255,.07); }
+        .project-preview strong { display:block; color:var(--mars-orange); margin-bottom:.3rem; }
+        .projects-nav-link { color:var(--mars-orange); font-weight:700; }
+
+        .projects-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
@@ -895,39 +1073,35 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-
+    
 
         .coming-soon-location {
             position: relative;
             overflow: hidden;
             border-color: rgba(255, 140, 40, .28);
         }
-
         .coming-soon-location::after {
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(120deg, transparent, rgba(255, 140, 40, .07), transparent);
+            background: linear-gradient(120deg, transparent, rgba(255,140,40,.07), transparent);
             transform: translateX(-100%);
             transition: transform .7s ease;
         }
-
-        .coming-soon-location:hover::after {
-            transform: translateX(100%);
-        }
-
+        .coming-soon-location:hover::after { transform: translateX(100%); }
         .location-badge {
             display: inline-block;
             margin-bottom: .45rem;
             padding: .3rem .65rem;
-            border: 1px solid rgba(255, 140, 40, .4);
+            border: 1px solid rgba(255,140,40,.4);
             border-radius: 999px;
             color: #ff9a3d;
             font-size: .72rem;
             font-weight: 800;
             letter-spacing: .12em;
         }
-    </style>
+
+</style>
 </head>
 
 <body>
@@ -940,7 +1114,7 @@
             <div class="logo">🚀 EduMars</div>
             <ul>
                 <li><a href="#o-projekcie">O projekcie</a></li>
-                <li><a href="#projekty">Projekty</a></li>
+                <li><a href="projekty.html" class="projects-nav-link">Projekty</a></li>
                 <li><a href="#zespol">Zespół</a></li>
                 <li><a href="#aktualnosci">Aktualności</a></li>
                 <li><a href="#sponsorzy">Sponsorzy i darczyńcy</a></li>
@@ -960,8 +1134,7 @@
             <h2>O projekcie</h2>
             <p style="font-size: clamp(1rem, 2.5vw, 1.2rem); margin-bottom: 2rem;">
                 EduMars to innowacyjna inicjatywa edukacyjna z zakresu astronomii, robotyki i programowania,
-                prowadzona metodami edukacji spersonalizowanej – w małych grupach oraz poprzez samodzielną naukę pod
-                opieką instruktora.
+                prowadzona metodami edukacji spersonalizowanej – w małych grupach oraz poprzez samodzielną naukę pod opieką instruktora.
             </p>
 
             <div class="features">
@@ -988,58 +1161,56 @@
 
         <section id="projekty">
             <h2>Realizowane projekty</h2>
-            <p style="margin-bottom: 2rem; font-size: clamp(0.9rem, 2vw, 1rem);">
-                Nasi podopieczni uczą się wspólnie rozwiązywania problemów inżynierskich poprzez realizację
-                wybranych przez siebie projektów:
-            </p>
-
-            <div class="projects-grid">
-                <div class="project-item">
-                    <strong>🤖 Marsjańska Mrówka</strong>
-                    <p>Łazik marsjański wraz z autorską makietą powierzchni Marsa</p>
+            <div class="projects-portal">
+                <div class="projects-portal-head">
+                    <div class="projects-portal-copy">
+                        <span class="projects-kicker">Strefa projektów</span>
+                        <h3>Poznaj nasze projekty bliżej 🚀</h3>
+                        <p>
+                            Tutaj prezentujemy projekty, które rozwijają u uczestników kreatywność,
+                            samodzielność i praktyczne umiejętności z zakresu robotyki, programowania,
+                            astronomii i inżynierii. Kliknij, aby przejść do osobnej strony z pełnym opisem.
+                        </p>
+                    </div>
+                    <a href="projekty.html" class="projects-button">Zobacz projekty <span>→</span></a>
                 </div>
-
-                <div class="project-item">
-                    <strong>🛸 Poduszkowiec</strong>
-                    <p>Pojazd przemieszczający się po ziemi i wodzie</p>
-                </div>
-
-                <div class="project-item">
-                    <strong>⚡ Roboty walczące</strong>
-                    <p>Minisumo i linefollower</p>
-                </div>
-
-                <div class="project-item">
-                    <strong>📚 Rakieta</strong>
-                    <p>Autorski model rakiety</p>
-                </div>
-
-                <div class="project-item">
-                    <strong>🛰️ CanSat</strong>
-                    <p>Minisatelita edukacyjny w standardzie CanSat</p>
-                </div>
-
-                <div class="project-item">
-                    <strong>📚 Ciągły rozwój</strong>
-                    <p>Kursy online, gamifikacja i internetowe zasoby wiedzy</p>
+                <div class="project-preview-grid">
+                    <div class="project-preview"><strong>🤖 Robotyka</strong><span>Budujemy i programujemy własne konstrukcje.</span></div>
+                    <div class="project-preview"><strong>🛰️ Kosmos</strong><span>Eksperymentujemy i poznajemy technologie kosmiczne.</span></div>
+                    <div class="project-preview"><strong>⚙️ Inżynieria</strong><span>Od pomysłu, przez prototyp, aż po działający projekt.</span></div>
                 </div>
             </div>
         </section>
 
         <section id="zespol">
             <h2>Nasz zespół</h2>
+
             <div class="team-section">
-                <h3>Poznaj osobę prowadzącą projekt</h3>
-                <div class="team-member">
-                    <img src="kamil.jpg" alt="Kamil Misiurek" class="team-photo">
-                    <div class="team-name">Kamil Misiurek</div>
-                    <div class="team-role">Organizator i Główny instruktor</div>
-                    <div class="team-description">
-                        Pasjonat robotyki, programowania i astronomii. Prowadzi zajęcia EduMars,
-                        pomagając młodym odkrywcom rozwijać umiejętności techniczne i naukowe poprzez
-                        praktyczne projekty inspirowane eksploracją kosmosu.
+                <h3>Poznaj nasz zespół</h3>
+
+                <a href="zespol.html"
+                   class="team-link"
+                   aria-label="Przejdź do podstrony przedstawiającej cały zespół">
+
+                    <div class="team-intro-card">
+                        <div class="team-intro-icon">👥</div>
+
+                        <h4>Za EduMars stoi cały zespół</h4>
+
+                        <p>
+                            EduMars tworzą osoby, które wspólnie rozwijają projekt,
+                            prowadzą zajęcia i pomagają młodym odkrywcom poznawać
+                            robotykę, programowanie oraz świat nauki i kosmosu.
+                            Poznaj osoby stojące za projektem i dowiedz się,
+                            czym zajmuje się każdy z nas.
+                        </p>
+
+                        <div class="team-intro-cta">
+                            Przedstawienie pełnego zespołu <span>→</span>
+                        </div>
                     </div>
-                </div>
+
+                </a>
             </div>
         </section>
 
@@ -1124,7 +1295,7 @@
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTIk-LgAe-wfyulcibPyA-4G9erFTKEZP0yke-iAp-oZog1Q/viewform"
                     class="cta-button" target="_blank" rel="noopener noreferrer">Dołącz do EduMars! 🚀</a>
             </div>
-
+        
         </section>
         <section id="sponsorzy">
             <h2>Sponsorzy i darczyńcy</h2>
@@ -1144,59 +1315,53 @@
             </a>
         </section>
 
-        <section id="kontakt">
-            <h2>Kontakt</h2>
-            <div class="contact-info">
-                <div class="contact-card">
-                    <h3>📞 Telefon</h3>
-                    <p><a href="tel:+48886121202">+48 886 121 202</a></p>
-                </div>
-
-                <div class="contact-card">
-                    <h3>✉️ E-mail</h3>
-                    <p><a href="mailto:edumars2021@gmail.com">edumars2021@gmail.com</a></p>
-                    <p><a href="mailto:kontakt@fpd.org.pl">kontakt@fpd.org.pl</a></p>
-                </div>
+    <section id="kontakt">
+        <h2>Kontakt</h2>
+        <div class="contact-info">
+            <div class="contact-card">
+                <h3>📞 Telefon</h3>
+                <p><a href="tel:+48886121202">+48 886 121 202</a></p>
             </div>
 
-            <div class="social-media">
-                <h3>📱 Śledź nas w social media!</h3>
-                <div class="social-links">
-                    <a href="https://www.facebook.com/profile.php?id=100088950497777" class="social-link"
-                        target="_blank" rel="noopener noreferrer">
-                        <div class="icon">👥</div>
-                        <div class="platform">Facebook</div>
-                        <div class="handle">@EduMars</div>
-                    </a>
-
-                    <a href="https://www.youtube.com/@edumars" class="social-link" target="_blank"
-                        rel="noopener noreferrer">
-                        <div class="icon">📺</div>
-                        <div class="platform">YouTube</div>
-                        <div class="handle">@edumars</div>
-                    </a>
-
-                    <a href="https://www.instagram.com/edumarspolska" class="social-link" target="_blank"
-                        rel="noopener noreferrer">
-                        <div class="icon">📸</div>
-                        <div class="platform">Instagram</div>
-                        <div class="handle">@edumarspolska</div>
-                    </a>
-
-                    <a href="https://www.tiktok.com/@edumarspolska" class="social-link" target="_blank"
-                        rel="noopener noreferrer">
-                        <div class="icon">🎵</div>
-                        <div class="platform">TikTok</div>
-                        <div class="handle">@edumarspolska</div>
-                    </a>
-                </div>
+            <div class="contact-card">
+                <h3>✉️ E-mail</h3>
+                <p><a href="mailto:edumars2021@gmail.com">edumars2021@gmail.com</a></p>
             </div>
-        </section>
+        </div>
+
+        <div class="social-media">
+            <h3>📱 Śledź nas w social media!</h3>
+            <div class="social-links">
+                <a href="https://www.facebook.com/profile.php?id=100088950497777" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <div class="icon">👥</div>
+                    <div class="platform">Facebook</div>
+                    <div class="handle">@EduMars</div>
+                </a>
+
+                <a href="https://www.youtube.com/@edumars" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <div class="icon">📺</div>
+                    <div class="platform">YouTube</div>
+                    <div class="handle">@edumars</div>
+                </a>
+
+                <a href="https://www.instagram.com/edumarspolska" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <div class="icon">📸</div>
+                    <div class="platform">Instagram</div>
+                    <div class="handle">@edumarspolska</div>
+                </a>
+
+                <a href="https://www.tiktok.com/@edumarspolska" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <div class="icon">🎵</div>
+                    <div class="platform">TikTok</div>
+                    <div class="handle">@edumarspolska</div>
+                </a>
+            </div>
+        </div>
+    </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 EduMars – edukacja spersonalizowana – Projekt Fundacji Pomocy Dzieciom im. Stanisławy Bieńczak
-        </p>
+        <p>&copy; 2026 EduMars – edukacja spersonalizowana – Projekt Fundacji Pomocy Dzieciom im. Stanisławy Bieńczak</p>
         <p style="margin-top: 0.5rem; color: #aaa;">Edukacja kosmiczna dla dzieci i młodzieży 🌌</p>
     </footer>
 
