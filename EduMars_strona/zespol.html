@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduMars – Lista uczestników</title>
+
+    <style>
+        :root {
+            --mars-red: #cd5c5c;
+            --mars-orange: #ff6b35;
+            --dark-space: #0a0e27;
+            --light-space: #1a1f3a;
+            --star-white: #fff;
+            --accent-blue: #4a90e2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--dark-space), #1a1035);
+            color: white;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 14, 39, .95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-bottom: 2px solid var(--mars-orange);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--mars-orange);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: radial-gradient(circle, rgba(255, 107, 53, .2), transparent);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--mars-orange);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 1rem;
+        }
+
+        section {
+            background: rgba(26, 31, 58, .65);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 107, 53, .3);
+        }
+
+        h2 {
+            color: var(--mars-orange);
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--mars-orange);
+            display: inline-block;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat {
+            background: rgba(10, 14, 39, .6);
+            padding: 1.2rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 2rem;
+            color: var(--mars-orange);
+        }
+
+        .participants {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: rgba(10, 14, 39, .7);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 2px solid transparent;
+            transition: .3s;
+        }
+
+        .card:hover {
+            border-color: var(--mars-orange);
+            transform: translateY(-4px);
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--mars-red));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .avatar::after {
+            content: 'Kliknij, aby dodać zdjęcie';
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: .5rem;
+            text-align: center;
+            background: rgba(10, 14, 39, .75);
+            color: white;
+            font-size: .7rem;
+            opacity: 0;
+            transition: .2s;
+        }
+
+        .avatar:hover::after {
+            opacity: 1;
+        }
+
+        .avatar input {
+            display: none;
+        }
+
+        .name {
+            font-size: 1.3rem;
+            color: var(--mars-orange);
+            font-weight: bold;
+        }
+
+        .role {
+            color: var(--accent-blue);
+            margin: .4rem 0 1rem;
+        }
+
+        .info {
+            color: #ddd;
+            font-size: .95rem;
+            line-height: 1.6;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: .4rem .8rem;
+            background: rgba(255, 107, 53, .2);
+            border: 1px solid var(--mars-orange);
+            border-radius: 20px;
+            font-size: .85rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 2px solid var(--mars-orange);
+            background: rgba(10, 14, 39, .8);
+        }
+
+        .participant-count {
+            position: fixed;
+            right: 1rem;
+            top: 6rem;
+            z-index: 10;
+            background: rgba(10, 14, 39, .88);
+            border: 1px solid rgba(255, 107, 53, .6);
+            border-radius: 12px;
+            padding: .55rem .8rem;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
+        }
+
+        .participant-count strong {
+            display: block;
+            color: var(--mars-orange);
+            font-size: 1.35rem;
+            line-height: 1;
+        }
+
+        .participant-count span {
+            display: block;
+            color: #ddd;
+            font-size: .72rem;
+            margin-top: .2rem;
+        }
+
+        @media (max-width:700px) {
+            .participant-count {
+                top: auto;
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .category {
+            background: rgba(10, 14, 39, .7);
+            border: 1px solid rgba(255, 107, 53, .35);
+            border-radius: 15px;
+            padding: 1rem;
+        }
+
+        .category h3 {
+            color: var(--mars-orange);
+            margin-bottom: .4rem;
+        }
+
+        .category p {
+            color: #ddd;
+            font-size: .9rem;
+            line-height: 1.4;
+        }
+
+        .category-badge {
+            display: inline-block;
+            margin-top: .7rem;
+            padding: .3rem .65rem;
+            border-radius: 15px;
+            background: rgba(255, 107, 53, .15);
+            border: 1px solid rgba(255, 107, 53, .6);
+            font-size: .78rem;
+        }
+
+        @media (max-width:900px) {
+            .categories {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width:600px) {
+            .categories {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        .subcategory {
+            margin: 2rem 0 2.5rem;
+        }
+
+        .subcategory h3 {
+            color: var(--mars-orange);
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: .5rem;
+            border-bottom: 2px solid rgba(255, 107, 53, .45);
+        }
+
+        .subcategory .participants {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="participant-count" aria-label="Liczba uczestników">
+        <strong>24</strong>
+        <span>uczestników</span>
+    </div>
+
+
+    <header>
+        <nav>
+            <div class="logo">🚀 EduMars</div>
+            <ul>
+                <li><a href="index.html">Strona główna</a></li>
+                <li><a href="#uczestnicy">Uczestnicy</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Lista uczestników</h1>
+        <p>Poznaj osoby rozwijające swoje pasje w projekcie EduMars.</p>
+    </div>
+
+    <div class="container">
+
+        <section id="uczestnicy">
+            <h2>Uczestnicy</h2>
+            <div class="subcategory">
+                <h3>Prowadzący</h3>
+                <div class="participants">
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Kamil Misiurek</div>
+                        <div class="role">Prowadzący</div>
+                        <div class="info">
+                            Krótki opis prowadzącego i jego roli w projekcie.
+                        </div>
+                        <span class="badge">Prowadzący</span>
+                    </div>
+
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Dominika Bąk</div>
+                        <div class="role">Prowadzący</div>
+                        <div class="info">
+                            Krótki opis prowadzącego i jego roli w projekcie.
+                        </div>
+                        <span class="badge">Prowadzący</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subcategory">
+                <h3>Mechanicy</h3>
+                <div class="participants">
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Jan</div>
+                        <div class="role">Lider • Mechanika • CAD • Elektronika • Dokumentacja techniczna • CAE</div>
+                        <div class="info">
+                            Krótki opis zainteresowań i realizowanych projektów.
+                        </div>
+                        <span class="badge">Mechanik</span>
+                    </div>
+
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Dominik</div>
+                        <div class="role">Mechanika • Konstrukcja • Radiokomunikacja</div>
+                        <div class="info">
+                            Krótki opis zainteresowań i realizowanych projektów.
+                        </div>
+                        <span class="badge">Mechanik</span>
+                    </div>
+
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Szymon</div>
+                        <div class="role">Mechanika • Dokumentacja techniczna</div>
+                        <div class="info">
+                            Krótki opis zainteresowań i realizowanych projektów.
+                        </div>
+                        <span class="badge">Mechanik</span>
+                    </div>
+
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Piotrek</div>
+                        <div class="role">Mechanika • CAD</div>
+                        <div class="info">
+                            Krótki opis zainteresowań i realizowanych projektów.
+                        </div>
+                        <span class="badge">Mechanik</span>
+                    </div>
+
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Miłosz</div>
+                        <div class="role">Mechanika • Konstrukcja • CAD</div>
+                        <div class="info">
+                            Krótki opis zainteresowań i realizowanych projektów.
+                        </div>
+                        <span class="badge">Mechanik</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="subcategory">
+                <h3>Programiści</h3>
+                <div class="participants">
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Mateusz</div>
+                        <div class="role">Programowanie • Elektronika • CAM • Radiokomunikacja</div>
+                        <div class="info">
+                            Zajmuje się projektowaniem elektroniki oraz budową minisatelity CanSat.
+                        </div>
+                        <span class="badge">Programista</span>
+                    </div>
+
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Patryk</div>
+                        <div class="role">Robotyka • Programowanie • Radiokomunikacja</div>
+                        <div class="info">
+                            Tworzy roboty oraz rozwija projekty związane z programowaniem mikrokontrolerów.
+                        </div>
+                        <span class="badge">Programista</span>
+                    </div>
+
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Aleks</div>
+                        <div class="role">Robotyka • Programowanie</div>
+                        <div class="info">
+                            Tworzy roboty oraz rozwija projekty związane z programowaniem mikrokontrolerów.
+                        </div>
+                        <span class="badge">Programista</span>
+                    </div>
+
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Antek</div>
+                        <div class="role">Robotyka • Programowanie</div>
+                        <div class="info">
+                            Tworzy roboty oraz rozwija projekty związane z programowaniem mikrokontrolerów.
+                        </div>
+                        <span class="badge">Programista</span>
+                    </div>
+
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Karolina</div>
+                        <div class="role">Programowanie • Grafika</div>
+                        <div class="info">
+                            Tworzy roboty oraz rozwija projekty związane z programowaniem mikrokontrolerów.
+                        </div>
+                        <span class="badge">Programista</span>
+                    </div>
+
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Marcel</div>
+                        <div class="role">Programowanie</div>
+                        <div class="info">
+                            Tworzy roboty oraz rozwija projekty związane z programowaniem mikrokontrolerów.
+                        </div>
+                        <span class="badge">Programista</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="subcategory">
+                <h3>Media</h3>
+                <div class="participants">
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Dominik</div>
+                        <div class="role">Promocja • Grafika</div>
+                        <div class="info">
+                            Krótki opis zainteresowań i działań związanych z mediami.
+                        </div>
+                        <span class="badge">Media</span>
+                    </div>
+
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Zofia</div>
+                        <div class="role">Media • Promocja</div>
+                        <div class="info">
+                            Krótki opis zainteresowań i działań związanych z mediami.
+                        </div>
+                        <span class="badge">Media</span>
+                    </div>
+
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Maja</div>
+                        <div class="role">Media • Grafika • Fotografia</div>
+                        <div class="info">
+                            Krótki opis zainteresowań i działań związanych z mediami.
+                        </div>
+                        <span class="badge">Media</span>
+                    </div>
+
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Tadeusz</div>
+                        <div class="role">Grafika</div>
+                        <div class="info">
+                            Krótki opis zainteresowań i działań związanych z mediami.
+                        </div>
+                        <span class="badge">Media</span>
+                    </div>
+
+                    <div class="card">
+                        <label class="avatar" title="Kliknij, aby dodać zdjęcie">
+                            <span>👤</span>
+                        </label>
+                        <div class="name">Maciek</div>
+                        <div class="role">Promocja</div>
+                        <div class="info">
+                            Krótki opis zainteresowań i działań związanych z mediami.
+                        </div>
+                        <span class="badge">Media</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>© 2026 EduMars – Fundacja Pomocy Dzieciom im. Stanisławy Bieńczak</p>
+    </footer>
+
+    <script>
+        function previewAvatar(input) {
+            const avatar = input.closest('.avatar');
+            const file = input.files && input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                let img = avatar.querySelector('img');
+                if (!img) {
+                    img = document.createElement('img');
+                    avatar.prepend(img);
+                }
+                img.src = e.target.result;
+                avatar.querySelector('span')?.remove();
+            };
+            reader.readAsDataURL(file);
+        }
+    </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.avatar[data-photo]').forEach(avatar => {
+                const photo = avatar.dataset.photo.trim();
+                if (!photo) return;
+                avatar.style.backgroundImage = `url("${photo.replace(/"/g, '%22')}")`;
+                avatar.style.backgroundSize = 'cover';
+                avatar.style.backgroundPosition = 'center';
+                avatar.style.backgroundRepeat = 'no-repeat';
+                avatar.textContent = '';
+            });
+        });
+    </script>
+
+</body>
+
+</html>
