@@ -6,6 +6,7 @@
 <title>EduMars – Ściana Wsparcia</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -13,316 +14,488 @@
 }
 
 :root{
-    --mars-red:#cd5c5c;
-    --mars-orange:#ff6b35;
-    --dark-space:#0a0e27;
-    --light-space:#1a1f3a;
-    --accent-blue:#27d3ff;
-    --white:#ffffff;
+    --orange:#ff6b35;
+    --orangeGlow:#ff8b4a;
+    --blue:#17d4ff;
+    --bg1:#030611;
+    --bg2:#07153a;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
+
     font-family:"Segoe UI",Tahoma,sans-serif;
-    background:linear-gradient(135deg,var(--dark-space),#150d35);
     color:white;
     overflow-x:hidden;
+    background:
+        radial-gradient(circle at 85% 10%, rgba(255,120,60,.22), transparent 25%),
+        linear-gradient(180deg,var(--bg1),var(--bg2),#02050f);
+
 }
 
-/* ================== GWIAZDY ================== */
+/* Dolne poświaty */
 
-.stars{
+body::before,
+body::after{
+
+    content:"";
     position:fixed;
-    inset:0;
+    bottom:-220px;
+    width:520px;
+    height:520px;
+    border-radius:50%;
     pointer-events:none;
     z-index:0;
+    filter:blur(80px);
+
+}
+
+body::before{
+    left:-180px;
+    background:rgba(255,120,60,.28);
+}
+
+body::after{
+    right:-180px;
+    background:rgba(255,120,60,.28);
+}
+
+/* ================= GWIAZDY ================= */
+
+.stars{
+
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
+
 }
 
 .star{
+
     position:absolute;
-    width:2px;
-    height:2px;
-    background:white;
     border-radius:50%;
-    animation:twinkle 3s infinite;
+    background:white;
+    animation:
+        twinkle linear infinite,
+        drift linear infinite;
+
 }
 
 @keyframes twinkle{
+
     0%,100%{opacity:.2;}
     50%{opacity:1;}
+
 }
 
-/* ================== HEADER ================== */
+@keyframes drift{
+
+    0%{transform:translate(0,0);}
+    50%{transform:translate(10px,-8px);}
+    100%{transform:translate(0,0);}
+
+}
+
+/* ================= MARS ================= */
+
+.mars{
+
+    position:absolute;
+    top:-80px;
+    right:-110px;
+    width:min(42vw,560px);
+    opacity:.95;
+    z-index:0;
+    pointer-events:none;
+    filter:drop-shadow(0 0 40px rgba(255,120,60,.3));
+
+}
+
+/* ================= HEADER ================= */
 
 header{
+
     position:sticky;
     top:0;
     z-index:100;
-    background:rgba(10,14,39,.92);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(255,107,53,.25);
+    backdrop-filter:blur(14px);
+    background:rgba(3,6,17,.86);
+    border-bottom:1px solid rgba(255,120,60,.35);
+
 }
 
 nav{
-    max-width:1200px;
+
+    max-width:1300px;
     margin:auto;
-    padding:18px;
+    padding:18px 24px;
     display:flex;
     justify-content:space-between;
     align-items:center;
     flex-wrap:wrap;
+
 }
 
 .logo{
-    font-size:1.8rem;
-    font-weight:bold;
-    background:linear-gradient(90deg,var(--mars-orange),var(--mars-red));
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+
+    font-size:2rem;
+    font-weight:700;
+    color:var(--orange);
+
 }
 
 nav ul{
+
     list-style:none;
     display:flex;
-    gap:24px;
-    flex-wrap:wrap;
+    gap:32px;
+
 }
 
 nav a{
+
     color:white;
     text-decoration:none;
+    position:relative;
     transition:.3s;
+
 }
 
 nav a:hover{
-    color:var(--mars-orange);
+
+    color:var(--orange);
+
 }
 
-/* ================== HERO ================== */
+nav a:hover::after{
+
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-10px;
+    width:100%;
+    height:3px;
+    background:var(--orange);
+    box-shadow:0 0 12px var(--orange);
+
+}
+
+/* ================= HERO ================= */
 
 .hero{
-    text-align:center;
-    padding:90px 20px 70px;
+
     position:relative;
     z-index:1;
-    background:radial-gradient(circle,rgba(255,107,53,.18),transparent);
+    text-align:center;
+    padding:90px 20px 70px;
+
+}
+
+.hero .rocket{
+
+    font-size:44px;
+    margin-bottom:14px;
+    color:var(--orange);
+
 }
 
 .hero h1{
+
     font-size:clamp(3rem,8vw,5rem);
-    color:var(--mars-orange);
-    text-shadow:0 0 25px rgba(255,107,53,.5);
-    animation:glow 2s ease-in-out infinite;
+    color:var(--orange);
+    text-shadow:0 0 25px rgba(255,120,60,.7);
+
+}
+
+.hero .line{
+
+    width:140px;
+    height:4px;
+    margin:24px auto;
+    border-radius:10px;
+    background:var(--orange);
+    box-shadow:0 0 18px var(--orange);
+
 }
 
 .hero p{
-    max-width:760px;
-    margin:20px auto 0;
-    color:#ddd;
+
+    max-width:850px;
+    margin:auto;
     font-size:1.15rem;
+    line-height:1.7;
+    color:#e5e5e5;
+
 }
 
-@keyframes glow{
-    0%,100%{
-        filter:drop-shadow(0 0 10px rgba(255,107,53,.35));
-    }
-    50%{
-        filter:drop-shadow(0 0 25px rgba(255,107,53,.8));
-    }
-}
-
-/* ================== SEKCJE ================== */
+/* ================= CONTENT ================= */
 
 .container{
-    max-width:1300px;
-    margin:auto;
-    padding:20px;
+
     position:relative;
     z-index:1;
+    max-width:1300px;
+    margin:auto;
+    padding:25px;
+
 }
 
-section{
-    margin:50px 0;
-    padding:35px;
-    background:rgba(26,31,58,.58);
+.panel{
+
+    margin-bottom:45px;
+    padding:30px;
+    border-radius:24px;
+    background:rgba(6,18,52,.45);
     backdrop-filter:blur(12px);
-    border-radius:22px;
-    border:1px solid rgba(255,107,53,.18);
+
 }
 
-h2{
-    display:inline-block;
-    color:var(--mars-orange);
-    border-bottom:3px solid var(--mars-orange);
-    padding-bottom:8px;
-    margin-bottom:35px;
+.orange{
+
+    border:2px solid rgba(255,120,60,.75);
+    box-shadow:0 0 25px rgba(255,120,60,.2);
+
 }
 
-/* ================== GALERIA ================== */
+.blue{
+
+    border:2px solid rgba(23,212,255,.7);
+    box-shadow:0 0 25px rgba(23,212,255,.15);
+
+}
+
+.section-title{
+
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:30px;
+    font-size:2rem;
+    font-weight:700;
+    color:var(--orange);
+
+}
+
+.blue .section-title{
+
+    color:var(--blue);
+
+}
+
+.section-title::after{
+
+    content:"";
+    flex:1;
+    height:3px;
+    background:currentColor;
+    opacity:.35;
+    border-radius:20px;
+
+}
+
+/* ================= GALERIA ================= */
 
 .gallery{
+
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-    gap:35px;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:28px;
+
 }
 
 .poster{
+
     position:relative;
     overflow:hidden;
-    border-radius:22px;
+    border-radius:18px;
     cursor:pointer;
-    transition:.4s;
-    background:#070a18;
+    transition:.35s;
+    background:#000;
+
 }
 
 .poster img{
+
     width:100%;
     display:block;
-    transition:.5s;
+    transition:.45s;
+
 }
 
 .poster::before{
+
     content:"";
     position:absolute;
     inset:0;
-    border-radius:22px;
+    border-radius:18px;
     border:2px solid transparent;
-    transition:.4s;
+    transition:.35s;
+
 }
 
 .poster:hover{
-    transform:translateY(-10px);
+
+    transform:translateY(-8px);
+
 }
 
 .poster:hover img{
+
     transform:scale(1.04);
-    filter:brightness(1.05);
+
 }
 
 .poster:hover::before{
-    border-color:var(--mars-orange);
+
+    border-color:var(--orange);
     box-shadow:
-        0 0 18px rgba(255,107,53,.65),
-        inset 0 0 18px rgba(255,107,53,.25);
+        0 0 18px rgba(255,120,60,.8),
+        inset 0 0 18px rgba(255,120,60,.25);
+
 }
 
-/* Podpis */
-
 .poster-name{
+
     position:absolute;
     left:0;
     right:0;
     bottom:0;
     padding:18px;
-    background:linear-gradient(transparent,rgba(0,0,0,.96));
     text-align:center;
+    background:linear-gradient(transparent,rgba(0,0,0,.95));
     transform:translateY(100%);
-    transition:.35s;
+    transition:.3s;
+
 }
 
 .poster:hover .poster-name{
+
     transform:translateY(0);
+
 }
 
 .poster-name h3{
-    color:white;
-    font-size:1.25rem;
-    margin-bottom:4px;
+
+    margin-bottom:6px;
+
 }
 
 .poster-name p{
-    color:var(--accent-blue);
-    font-size:.95rem;
+
+    color:var(--blue);
+
 }
 
-/* ================== LIGHTBOX ================== */
+/* ================= LIGHTBOX ================= */
 
 .lightbox{
+
     position:fixed;
     inset:0;
-    width:100vw;
-    height:100vh;
-    background:rgba(0,0,0,.98);
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:0;
+    background:rgba(0,0,0,.98);
     opacity:0;
     visibility:hidden;
-    transition:opacity .25s ease;
+    transition:.25s;
     z-index:9999;
+
 }
 
 .lightbox.active{
+
     opacity:1;
     visibility:visible;
+
 }
 
 .lightbox img{
+
     max-width:100vw;
     max-height:100vh;
-    width:auto;
-    height:auto;
     object-fit:contain;
-    border-radius:0;
-    box-shadow:none;
-    user-select:none;
+
 }
 
 .close{
+
     position:absolute;
-    top:20px;
+    top:18px;
     right:30px;
     font-size:52px;
-    color:white;
     cursor:pointer;
-    transition:.2s;
+
 }
 
-.close:hover{
-    color:var(--mars-orange);
-}
-
-/* ================== FOOTER ================== */
+/* ================= FOOTER ================= */
 
 footer{
-    margin-top:60px;
+
+    position:relative;
+    z-index:1;
     text-align:center;
-    padding:40px 20px;
-    border-top:2px solid var(--mars-orange);
-    background:rgba(10,14,39,.8);
+    padding:70px 20px 45px;
+
 }
 
-footer p:last-child{
-    margin-top:8px;
-    color:#aaa;
+footer h3{
+
+    font-size:1.8rem;
+    margin-bottom:18px;
+
 }
 
-/* ================== RESPONSYWNOŚĆ ================== */
+footer .line{
 
-@media(max-width:768px){
+    width:120px;
+    height:3px;
+    margin:18px auto 25px;
+    background:var(--orange);
+    box-shadow:0 0 15px var(--orange);
+
+}
+
+footer p{
+
+    color:#d9d9d9;
+    line-height:1.7;
+
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:850px){
 
     nav{
+
         flex-direction:column;
-        gap:15px;
+        gap:18px;
+
     }
 
-    nav ul{
-        justify-content:center;
-    }
+    .mars{
 
-    section{
-        padding:22px;
-    }
+        width:300px;
+        right:-70px;
+        top:15px;
+        opacity:.55;
 
-    .gallery{
-        grid-template-columns:1fr;
     }
 
     .hero{
-        padding:70px 15px 50px;
+
+        padding-top:70px;
+
     }
 
 }
+
 </style>
 </head>
 
@@ -330,16 +503,21 @@ footer p:last-child{
 
 <div class="stars" id="stars"></div>
 
+<!-- Mars -->
+<img src="mars.png" class="mars" alt="Mars">
+
 <header>
 
 <nav>
 
-<div class="logo">🚀 EduMars</div>
+<div class="logo">EduMars</div>
 
 <ul>
+
 <li><a href="index.html">Strona główna</a></li>
 <li><a href="#sponsorzy">Sponsorzy</a></li>
 <li><a href="#darczyncy">Darczyńcy</a></li>
+
 </ul>
 
 </nav>
@@ -348,7 +526,11 @@ footer p:last-child{
 
 <section class="hero">
 
-<h1>Ściana Wsparcia</h1>
+<div class="rocket">🚀</div>
+
+<h1>ŚCIANA WSPARCIA</h1>
+
+<div class="line"></div>
 
 <p>
 Każda misja kosmiczna potrzebuje ludzi, którzy pomagają jej wystartować.
@@ -359,34 +541,43 @@ Dziękujemy wszystkim sponsorom i darczyńcom wspierającym rozwój EduMars.
 
 <div class="container">
 
-<!-- ================= SPONSORZY ================= -->
+<!-- ================= Sponsorzy ================= -->
 
-<section id="sponsorzy">
+<section id="sponsorzy" class="panel orange">
 
-<h2>🏆 Sponsorzy</h2>
+<h2 class="section-title">🏆 Sponsorzy</h2>
 
 <div class="gallery">
 
-<div class="poster" onclick="openPoster('dps.jpg')">
+<div class="poster" onclick="openPoster('spon1.jpg')">
 
-<img src="dps.jpg" alt="DPS Software">
+<img src="spon1.jpg" alt="Sponsor 1">
 
 <div class="poster-name">
-<h3>DPS Software</h3>
-<p>Licencja edukacyjna SolidWorks</p>
+<h3>Sponsor 1</h3>
+<p>Dziękujemy za wsparcie</p>
 </div>
 
 </div>
 
-<!-- Kolejny sponsor -->
+<div class="poster" onclick="openPoster('spon2.jpg')">
 
-<div class="poster" onclick="openPoster('sponsor2.jpg')">
-
-<img src="sponsor2.jpg" alt="Sponsor">
+<img src="spon2.jpg" alt="Sponsor 2">
 
 <div class="poster-name">
-<h3>Kolejny Sponsor</h3>
-<p>Dodaj kolejny plakat</p>
+<h3>Sponsor 2</h3>
+<p>Dziękujemy za wsparcie</p>
+</div>
+
+</div>
+
+<div class="poster" onclick="openPoster('spon3.jpg')">
+
+<img src="spon3.jpg" alt="Sponsor 3">
+
+<div class="poster-name">
+<h3>Sponsor 3</h3>
+<p>Dziękujemy za wsparcie</p>
 </div>
 
 </div>
@@ -395,43 +586,43 @@ Dziękujemy wszystkim sponsorom i darczyńcom wspierającym rozwój EduMars.
 
 </section>
 
-<!-- ================= DARCZYŃCY ================= -->
+<!-- ================= Darczyńcy ================= -->
 
-<section id="darczyncy">
+<section id="darczyncy" class="panel blue">
 
-<h2>⭐ Darczyńcy</h2>
+<h2 class="section-title">⭐ Darczyńcy</h2>
 
 <div class="gallery">
 
 <div class="poster" onclick="openPoster('dar1.jpg')">
 
-<img src="dar1.jpg" alt="Darczyńca">
+<img src="dar1.jpg" alt="Darczyńca 1">
 
 <div class="poster-name">
-<h3>Imię i nazwisko</h3>
-<p>Wsparcie EduMars</p>
+<h3>Darczyńca 1</h3>
+<p>Dziękujemy!</p>
 </div>
 
 </div>
 
 <div class="poster" onclick="openPoster('dar2.jpg')">
 
-<img src="dar2.jpg" alt="Darczyńca">
+<img src="dar2.jpg" alt="Darczyńca 2">
 
 <div class="poster-name">
-<h3>Kolejny Darczyńca</h3>
-<p>Wsparcie EduMars</p>
+<h3>Darczyńca 2</h3>
+<p>Dziękujemy!</p>
 </div>
 
 </div>
 
 <div class="poster" onclick="openPoster('dar3.jpg')">
 
-<img src="dar3.jpg" alt="Darczyńca">
+<img src="dar3.jpg" alt="Darczyńca 3">
 
 <div class="poster-name">
-<h3>Następny Darczyńca</h3>
-<p>Wsparcie EduMars</p>
+<h3>Darczyńca 3</h3>
+<p>Dziękujemy!</p>
 </div>
 
 </div>
@@ -444,7 +635,9 @@ Dziękujemy wszystkim sponsorom i darczyńcom wspierającym rozwój EduMars.
 
 <footer>
 
-<p><strong>Dziękujemy za wspólne budowanie przyszłości edukacji kosmicznej.</strong></p>
+<h3>Dziękujemy za wspólne budowanie przyszłości edukacji kosmicznej.</h3>
+
+<div class="line"></div>
 
 <p>
 Projekt EduMars realizowany jest w ramach Fundacji Pomocy Dzieciom
@@ -453,67 +646,87 @@ im. Stanisławy Bieńczak.
 
 </footer>
 
-<!-- ================= LIGHTBOX ================= -->
+<!-- Lightbox -->
 
 <div class="lightbox" id="lightbox">
 
 <span class="close" onclick="closePoster()">&times;</span>
 
-<img id="posterView" alt="Plakat z podziękowaniem">
+<img id="posterView" alt="Plakat">
 
 </div>
 
 <script>
 
-/* ---------- Gwiazdy ---------- */
+/* ================= Gwiazdy ================= */
 
 const stars=document.getElementById("stars");
-const count=window.innerWidth<768?120:220;
 
-for(let i=0;i<count;i++){
+for(let i=0;i<250;i++){
 
-    const star=document.createElement("div");
-    star.className="star";
-    star.style.left=Math.random()*100+"%";
-    star.style.top=Math.random()*100+"%";
-    star.style.animationDelay=Math.random()*3+"s";
-    stars.appendChild(star);
+const star=document.createElement("div");
+
+const size=Math.random()*3+1;
+
+star.className="star";
+
+star.style.width=size+"px";
+star.style.height=size+"px";
+
+star.style.left=Math.random()*100+"%";
+star.style.top=Math.random()*100+"%";
+
+star.style.animationDuration=
+(2+Math.random()*4)+"s,"+
+(6+Math.random()*10)+"s";
+
+star.style.animationDelay=
+Math.random()*3+"s,"+
+Math.random()*5+"s";
+
+stars.appendChild(star);
 
 }
 
-/* ---------- Lightbox ---------- */
+/* ================= Lightbox ================= */
 
 const lightbox=document.getElementById("lightbox");
-const posterView=document.getElementById("posterView");
+const poster=document.getElementById("posterView");
 
 function openPoster(src){
 
-    posterView.src=src;
-    lightbox.classList.add("active");
-    document.body.style.overflow="hidden";
+poster.src=src;
+lightbox.classList.add("active");
+document.body.style.overflow="hidden";
 
 }
 
 function closePoster(){
 
-    lightbox.classList.remove("active");
-    document.body.style.overflow="";
+lightbox.classList.remove("active");
+document.body.style.overflow="";
 
 }
 
-lightbox.addEventListener("click",function(e){
+lightbox.addEventListener("click",e=>{
 
-    if(e.target===lightbox){
-        closePoster();
-    }
+if(e.target===lightbox) closePoster();
 
 });
 
-document.addEventListener("keydown",function(e){
+document.addEventListener("keydown",e=>{
 
-    if(e.key==="Escape" && lightbox.classList.contains("active")){
-        closePoster();
-    }
+if(e.key==="Escape") closePoster();
+
+});
+
+/* ================= Parallax Mars ================= */
+
+const mars=document.querySelector(".mars");
+
+window.addEventListener("scroll",()=>{
+
+mars.style.transform=`translateY(${window.scrollY*0.12}px)`;
 
 });
 
