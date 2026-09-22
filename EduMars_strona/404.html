@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>404 – EduMars</title>
+
+<style>
+:root {
+    --mars-orange: #ff6b35;
+    --mars-red: #cd5c5c;
+    --dark-space: #0a0e27;
+    --light-space: #1a1f3a;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--white);
+    background: var(--dark-space);
+    overflow: hidden;
+}
+
+/* =========================
+   TŁO
+========================= */
+
+.error-page {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(5, 8, 28, 0.94) 0%,
+            rgba(5, 8, 28, 0.82) 28%,
+            rgba(5, 8, 28, 0.25) 55%,
+            rgba(5, 8, 28, 0.05) 100%
+        ),
+        url("404-edumars.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Delikatna ciemna warstwa na dole */
+.error-page::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(5, 8, 28, 0.12),
+            transparent 45%,
+            rgba(5, 8, 28, 0.35)
+        );
+    pointer-events: none;
+}
+
+/* =========================
+   GWIAZDY
+========================= */
+
+.stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255,255,255,0.9);
+    opacity: 0.7;
+    animation: twinkle 4s ease-in-out infinite;
+}
+
+.star:nth-child(1) {
+    top: 12%;
+    left: 8%;
+    animation-delay: 0s;
+}
+
+.star:nth-child(2) {
+    top: 22%;
+    left: 17%;
+    animation-delay: 1s;
+}
+
+.star:nth-child(3) {
+    top: 8%;
+    left: 34%;
+    animation-delay: 2s;
+}
+
+.star:nth-child(4) {
+    top: 30%;
+    left: 43%;
+    animation-delay: 0.5s;
+}
+
+.star:nth-child(5) {
+    top: 14%;
+    left: 57%;
+    animation-delay: 2.5s;
+}
+
+.star:nth-child(6) {
+    top: 38%;
+    left: 73%;
+    animation-delay: 1.5s;
+}
+
+.star:nth-child(7) {
+    top: 9%;
+    left: 82%;
+    animation-delay: 3s;
+}
+
+.star:nth-child(8) {
+    top: 48%;
+    left: 91%;
+    animation-delay: 1s;
+}
+
+@keyframes twinkle {
+    0%,
+    100% {
+        opacity: 0.35;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.35);
+    }
+}
+
+/* =========================
+   KOMETA
+========================= */
+
+.comet {
+    position: absolute;
+    top: 18%;
+    left: -180px;
+    width: 130px;
+    height: 3px;
+    border-radius: 50%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(150,220,255,0.35),
+        white
+    );
+    box-shadow:
+        0 0 12px rgba(180,235,255,0.9),
+        0 0 30px rgba(100,190,255,0.5);
+    transform: rotate(-18deg);
+    animation: cometFlight 12s ease-in-out infinite;
+    animation-delay: 4s;
+    z-index: 3;
+}
+
+.comet::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: white;
+    box-shadow:
+        0 0 10px white,
+        0 0 22px #b8eaff;
+}
+
+@keyframes cometFlight {
+
+    0% {
+        left: -180px;
+        opacity: 0;
+    }
+
+    5% {
+        opacity: 1;
+    }
+
+    45% {
+        left: 60%;
+        opacity: 1;
+    }
+
+    50% {
+        left: 75%;
+        opacity: 0;
+    }
+
+    100% {
+        left: 120%;
+        opacity: 0;
+    }
+}
+
+/* =========================
+   GŁÓWNA ZAWARTOŚĆ
+========================= */
+
+.content {
+    position: relative;
+    z-index: 10;
+
+    width: min(620px, 90%);
+    margin-left: clamp(30px, 8vw, 130px);
+
+    padding: 45px;
+    border-radius: 30px;
+
+    background: rgba(7, 10, 32, 0.68);
+    border: 1px solid rgba(255,255,255,0.12);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+
+    animation: contentAppear 1s ease-out;
+}
+
+@keyframes contentAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   LOGO
+========================= */
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.logo-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+
+    background: var(--mars-orange);
+
+    box-shadow:
+        0 0 10px rgba(255,107,53,0.8),
+        0 0 25px rgba(255,107,53,0.4);
+}
+
+/* =========================
+   404
+========================= */
+
+.error-number {
+    font-size: clamp(6rem, 14vw, 10rem);
+    line-height: 0.85;
+    font-weight: 900;
+    letter-spacing: -8px;
+
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #ffb08c,
+        var(--mars-orange)
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    text-shadow:
+        0 10px 40px rgba(255,107,53,0.18);
+
+    margin-bottom: 25px;
+}
+
+/* =========================
+   NAPIS
+========================= */
+
+h1 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.1;
+    margin-bottom: 18px;
+}
+
+.description {
+    color: rgba(255,255,255,0.78);
+    font-size: 1.08rem;
+    line-height: 1.7;
+    max-width: 500px;
+}
+
+/* =========================
+   MISJA
+========================= */
+
+.mission {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 22px;
+
+    color: #ffb08c;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.mission-line {
+    width: 35px;
+    height: 2px;
+    background: var(--mars-orange);
+    border-radius: 10px;
+}
+
+/* =========================
+   PRZYCISK
+========================= */
+
+.home-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    margin-top: 30px;
+    padding: 15px 25px;
+
+    color: white;
+    text-decoration: none;
+
+    font-size: 1rem;
+    font-weight: 700;
+
+    background: linear-gradient(
+        135deg,
+        var(--mars-orange),
+        #e94f27
+    );
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 10px 30px rgba(255,107,53,0.3);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+}
+
+.home-button:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 15px 40px rgba(255,107,53,0.45);
+}
+
+.home-button:active {
+    transform: translateY(0);
+}
+
+/* =========================
+   RESPONSYWNOŚĆ
+========================= */
+
+@media (max-width: 900px) {
+
+    .error-page {
+        align-items: flex-end;
+
+        background-position: 63% center;
+    }
+
+    .content {
+        width: calc(100% - 30px);
+        margin: 0 15px 25px;
+
+        padding: 30px;
+
+        background: rgba(7, 10, 32, 0.78);
+    }
+
+    .error-number {
+        font-size: 7rem;
+    }
+}
+
+@media (max-width: 600px) {
+
+    body {
+        overflow: auto;
+    }
+
+    .error-page {
+        min-height: 100svh;
+
+        background-position: 67% center;
+    }
+
+    .content {
+        padding: 25px 22px;
+        border-radius: 24px;
+    }
+
+    .error-number {
+        font-size: 5.5rem;
+        letter-spacing: -5px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .description {
+        font-size: 0.98rem;
+    }
+
+    .home-button {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .star,
+    .comet,
+    .content {
+        animation: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="error-page">
+
+    <!-- Gwiazdy -->
+    <div class="stars">
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+    </div>
+
+    <!-- Kometa -->
+    <div class="comet"></div>
+
+    <!-- Treść -->
+    <main class="content">
+
+        <div class="logo">
+            <span class="logo-dot"></span>
+            EduMars
+        </div>
+
+        <div class="error-number">
+            404
+        </div>
+
+        <h1>
+            Ups, zgubiłeś 
+            się na marsie
+        </h1>
+
+        <p class="description">
+            Wygląda na to, że ta strona nie istnieje,
+            została przeniesiona albo astronauta EduMars
+            zabrał ją ze sobą na Marsa.
+        </p>
+
+        <div class="mission">
+            <span class="mission-line"></span>
+            Misja EduMars trwa dalej
+        </div>
+
+        <a href="/" class="home-button">
+            ← Wróć na stronę główną
+        </a>
+
+    </main>
+
+</div>
+
+</body>
+</html>
