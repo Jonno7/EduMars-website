@@ -22,23 +22,36 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-padding-top: 90px;
+        }
+
         body {
             font-family: 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, var(--dark-space), #1a1035);
             color: white;
         }
 
+        :root {
+            --header-height: 76px;
+        }
+
         header {
-            position: sticky;
+            position: fixed !important;
             top: 0;
-            background: rgba(10, 14, 39, .95);
-            backdrop-filter: blur(10px);
-            padding: 1rem;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: var(--header-height);
+            background: rgba(10, 14, 39, .98);
             border-bottom: 2px solid var(--mars-orange);
+            z-index: 2147483647 !important;
+            isolation: isolate;
         }
 
         nav {
             max-width: 1200px;
+            height: 100%;
             margin: auto;
             display: flex;
             justify-content: space-between;
@@ -219,7 +232,7 @@
             position: fixed;
             right: 1rem;
             top: 6rem;
-            z-index: 10;
+            z-index: 100;
             background: rgba(10, 14, 39, .88);
             border: 1px solid rgba(255, 107, 53, .6);
             border-radius: 12px;
@@ -242,7 +255,34 @@
             margin-top: .2rem;
         }
 
+        /* Zawartość strony zawsze znajduje się pod stałym menu */
+        html {
+            scroll-padding-top: calc(var(--header-height) + 16px);
+        }
+
+        body {
+            padding-top: var(--header-height);
+            overflow-x: hidden;
+        }
+
+        .hero,
+        section {
+            scroll-margin-top: calc(var(--header-height) + 16px);
+        }
+
+        .avatar,
+        .card,
+        .participants,
+        .subcategory,
+        .hero,
+        .container,
+        section,
+        footer {
+            z-index: auto;
+        }
+
         @media (max-width:700px) {
+
             .participant-count {
                 top: auto;
                 bottom: 1rem;
@@ -314,13 +354,73 @@
         .subcategory .participants {
             margin-top: 0;
         }
-    </style>
+
+        /* Losowo rozmieszczone gwiazdy w tle */
+        .star-field {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+            background: transparent;
+        }
+
+        .star {
+            position: absolute;
+            display: block;
+            width: var(--size);
+            height: var(--size);
+            left: var(--x);
+            top: var(--y);
+            border-radius: 50%;
+            background: rgba(255,255,255,var(--opacity));
+            box-shadow: 0 0 calc(var(--size) * 2.2) rgba(180,220,255,.22);
+            animation: starFloat var(--duration) ease-in-out var(--delay) infinite, starTwinkle var(--twinkle) ease-in-out var(--delay) infinite;
+            will-change: transform, opacity;
+        }
+
+        .star.blue {
+            background: rgba(175,220,255,var(--opacity));
+            box-shadow: 0 0 calc(var(--size) * 2.5) rgba(120,190,255,.28);
+        }
+
+        .star.warm {
+            background: rgba(255,235,205,var(--opacity));
+            box-shadow: 0 0 calc(var(--size) * 2.3) rgba(255,190,130,.20);
+        }
+
+        @keyframes starFloat{
+    0%{
+        transform:translate3d(0,0,0) scale(1);
+    }
+    20%{
+        transform:translate3d(var(--x1),var(--y1),0) scale(1.03);
+    }
+    40%{
+        transform:translate3d(var(--x2),var(--y2),0) scale(.98);
+    }
+    60%{
+        transform:translate3d(var(--x3),var(--y3),0) scale(1.02);
+    }
+    80%{
+        transform:translate3d(var(--x4),var(--y4),0) scale(.99);
+    }
+    100%{
+        transform:translate3d(0,0,0) scale(1);
+    }
+}
+@media (prefers-reduced-motion: reduce){
+    .star{animation:none !important;}
+}
+</style>
 </head>
 
 <body>
 
+    <div class="star-field" id="starField" aria-hidden="true"></div>
+
     <div class="participant-count" aria-label="Liczba uczestników">
-        <strong>24</strong>
+        <strong>16</strong>
         <span>uczestników</span>
     </div>
 
@@ -589,6 +689,60 @@
     <footer>
         <p>© 2026 EduMars – Fundacja Pomocy Dzieciom im. Stanisławy Bieńczak</p>
     </footer>
+
+
+    <script>
+        /* Każde odświeżenie tworzy niezależny, losowy układ gwiazd.
+           Dzięki temu nie tworzą regularnej siatki ani powtarzalnego wzoru. */
+        document.addEventListener('DOMContentLoaded', () => {
+            const field = document.getElementById('starField');
+            if (!field) return;
+
+            const count = Math.min(235, Math.max(150, Math.floor(
+                (window.innerWidth * window.innerHeight) / 9000
+            )));
+
+            const fragment = document.createDocumentFragment();
+
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('span');
+                const size = Math.random() < 0.72
+                    ? (Math.random() * 1.7 + 0.45)
+                    : (Math.random() * 3.8 + 1.5);
+
+                star.className = 'star';
+
+                const type = Math.random();
+                if (type < 0.13) star.classList.add('blue');
+                else if (type < 0.20) star.classList.add('warm');
+
+                star.style.setProperty('--size', `${size.toFixed(2)}px`);
+                star.style.setProperty('--x', `${(Math.random() * 100).toFixed(3)}%`);
+                star.style.setProperty('--y', `${(Math.random() * 100).toFixed(3)}%`);
+                star.style.setProperty('--opacity', (Math.random() * 0.55 + 0.35).toFixed(2));
+                const mx = Math.random() * 90 + 70;
+        const my = Math.random() * 70 + 50;
+        const sx = Math.random() < 0.5 ? -1 : 1;
+        const sy = Math.random() < 0.5 ? -1 : 1;
+
+        star.style.setProperty('--x1', `${(mx * 0.45 * sx).toFixed(1)}px`);
+        star.style.setProperty('--y1', `${(my * 0.20 * sy).toFixed(1)}px`);
+        star.style.setProperty('--x2', `${(mx * 0.95 * sx).toFixed(1)}px`);
+        star.style.setProperty('--y2', `${(my * 0.70 * sy).toFixed(1)}px`);
+        star.style.setProperty('--x3', `${(mx * 0.55 * -sx).toFixed(1)}px`);
+        star.style.setProperty('--y3', `${(my * 0.95 * -sy).toFixed(1)}px`);
+        star.style.setProperty('--x4', `${(mx * 0.90 * -sx).toFixed(1)}px`);
+        star.style.setProperty('--y4', `${(my * 0.35 * -sy).toFixed(1)}px`);
+        star.style.setProperty('--duration', `${(Math.random() * 35 + 55).toFixed(1)}s`);
+        star.style.setProperty('--twinkle', `${(Math.random() * 5 + 4).toFixed(1)}s`);
+        star.style.setProperty('--delay', `${(Math.random() * -18).toFixed(1)}s`);
+
+                fragment.appendChild(star);
+            }
+
+            field.appendChild(fragment);
+        });
+    </script>
 
     <script>
         function previewAvatar(input) {
